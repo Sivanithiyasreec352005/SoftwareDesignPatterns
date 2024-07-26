@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 
 const Register = () => {
   return (
-    <>
+    <div>
       
       <div className='h-full w-full flex justify-center items-center'>
         <Card className="w-1/4">
@@ -38,7 +38,7 @@ const Register = () => {
           </CardFooter>
         </Card>
       </div>
-    </>
+    </div>
   );
 }
 export default Register

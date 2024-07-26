@@ -1,4 +1,4 @@
-import { Facebook, Twitter } from 'lucide-react'
+import { Facebook, Twitter,YoutubeIcon ,InstagramIcon, Instagram} from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -11,9 +11,14 @@ const Footer = () => {
         <a href='#' target='_blank' className='h-8 w-8 rounded-md text-primary hover:bg-primary/50 hover:text-background flex justify-center items-center'>
           <Twitter className='h-6 w-6' />
         </a>
+        <a href='#' target='_blank' className='h-8 w-8 rounded-md text-primary hover:bg-primary/50 hover:text-background flex justify-center items-center'>
+          <YoutubeIcon className='h-6 w-6' />
+        </a>
+        <a href='#' target='_blank' className='h-8 w-8 rounded-md text-primary hover:bg-primary/50 hover:text-background flex justify-center items-center'>
+          <Instagram className='h-6 w-6' />
+        </a>
       </div>
     </div>
   )
 }
-
 export default Footer
