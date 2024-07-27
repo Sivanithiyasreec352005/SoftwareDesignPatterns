@@ -6,13 +6,14 @@ import UserLayout from './layout/UserLayout'
 import AdminDashboard from './pages/Admin/AdminDashboard'
 import Business from './pages/Shared/Business'
 import Home from './pages/Shared/Home'
-import Courses from './pages/Shared/Courses'
+
 import Itdevelopment from './pages/Shared/Itdevelopment'
 import Login from './pages/Shared/Login'
 import NotFound from './pages/Shared/NotFound'
 import Register from './pages/Shared/Register'
 import UserDashboard from './pages/User/UserDashboard'
 import AdminUsers from './pages/Admin/AdminUsers'
+import CourseEnroll from './pages/Shared/CourseEnroll'
 const App = () => {
     return (
         <>
@@ -23,7 +24,9 @@ const App = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/business' element={<Business />} />
-                <Route path='/courses' element={<Courses />} />
+               
+                
+                <Route path='/courseEnroll' element={<CourseEnroll />} />
             </Route>
 
             <Route element={<UserLayout />}>
@@ -32,7 +35,7 @@ const App = () => {
 
             <Route element={<AdminLayout />}>
                 <Route path='/admin/dashboard' element={<AdminDashboard />} />
-                <Route path='/admin/users' element={<AdminUsers />} />
+                 <Route path='/admin/users' element={<AdminUsers />} />
             </Route>
 
             <Route path='*' element={<NotFound />} />

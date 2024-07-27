@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -8,10 +10,13 @@ const Login = () => {
         e.preventDefault();
         if (username === '' || password === '') {
             alert('Please fill in all fields');
+        } else if (username === 'csivanithiyasree@gmail.com' && password === '1234') {
+            navigate('/admin/dashboard', { replace: true });
         } else {
-            alert('Login successful');
+            alert('Invalid username or password');
         }
     };
+
     return (
         <div>
             <div className="body1">
@@ -24,7 +29,7 @@ const Login = () => {
                                 name="username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                required
+                               
                             />
                             <label>Username</label>
                         </div>
@@ -34,7 +39,7 @@ const Login = () => {
                                 name="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required
+                             
                             />
                             <label>Password</label>
                         </div>
@@ -47,4 +52,5 @@ const Login = () => {
         </div>
     );
 };
+
 export default Login;

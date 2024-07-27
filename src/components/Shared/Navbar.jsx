@@ -24,10 +24,15 @@ const Navbar = () => {
         {
         title:'IT/Development',
         link:'/development'
-    },
-        {
-        title:'Courses',
-        link:'/courses'
+    },  {
+        title:'CourseEnroll',
+        link:'/courseEnroll'
+        
+    }
+    ,  {
+        title:'Rating',
+        link:'/rating'
+        
     }
 ]
   return (

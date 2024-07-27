@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <div>
       <section className='body11'>
-        <div className="h- flex flex-col items-center justify-center ">
+        <div className="h- flex flex-col items-center justify-center  ">
           <div className="w-full max-w-4xl mx-auto p-8 text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-4">Welcome to Our Service</h1>
             <p className="text-lg text-gray-700 mb-8">
@@ -79,8 +79,7 @@ const Home = () => {
               <option value="Web Development">Web Development</option>
               <option value="Machine Learning">Machine Learning</option>
               <option value="Artificial Intelligence">Artificial Intelligence</option>
-              <option value="Hacking">Hacking </option>
-              <option value="DSA">DSA</option>
+              <option value="Flutter">Flutter</option>
             </select>
             <select name="date" value={filter.date} onChange={handleFilterChange}>
               <option value="">All Dates</option>
@@ -89,7 +88,6 @@ const Home = () => {
               <option value="2024-03-03">2024-03-03</option>
               <option value="2024-01-31">2024-01-31</option>
               <option value="2024-02-07">2024-02-07</option>
-              <option value="2024-07-24">2024-07-24</option>
               <option value="2024-06-26">2024-06-26</option>
             </select>
             <select name="instructor" value={filter.instructor} onChange={handleFilterChange}>

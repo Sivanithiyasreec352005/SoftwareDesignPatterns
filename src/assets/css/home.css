@@ -23,7 +23,8 @@
   }
   
   .card {
-      overflow: hidden;
+    opacity: 1;
+    overflow: hidden;
       display: inline-block;
     height:10%;
     width: 20%;
