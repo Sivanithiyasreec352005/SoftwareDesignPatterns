@@ -10,7 +10,7 @@ const Leftbar = () => {
             link: '/admin/dashboard',
             icon: LayoutDashboard
         }, {
-            title: 'Users',
+            title: 'Courses',
             link: '/admin/users',
             icon: Users
         }
@@ -18,7 +18,7 @@ const Leftbar = () => {
     return (
         <div className='h-screen w-1/6 flex justify-center items-center flex-col shadow-sm shadow-primary pt-10'>
             <div className='h-[5%] text-primary font-bold text-2xl flex justify-center items-center'>
-                iamneo
+                NLEARN
             </div>
             <div className='h-[90%] w-full flex flex-col justify-start items-center gap-2'>
                 {

@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-function CourseEnroll() {
+function UserLearning() {
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -155,4 +155,4 @@ function CourseEnroll() {
   );
 }
 
-export default CourseEnroll;
+export default UserLearning;

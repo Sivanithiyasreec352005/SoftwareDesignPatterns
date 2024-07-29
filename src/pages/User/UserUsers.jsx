@@ -26,30 +26,31 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-const AdminUsers = () => {
+
+const UserUsers = () => {
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
-    courseName: '',
-    institution: '',
-    instructor: '',
+    name: '',
+    username: '',
+    email: '',
     password: '',
     courseRegistered: '', // added field
   });
   const [users, setUsers] = useState([
     {
       id: 1,
-      courseName: "Course 1",
-      institution: "Institution 1",
-      instructor: "John Doe",
+      name: "John Doe",
+      username: "johndoe",
+      email: "john@example.com",
       password: "",
       courseRegistered: "Course 1", // added field
     },
     {
       id: 2,
-      courseName: "Course 2",
-      institution: "Institution 2",
-      instructor: "Jane Smith",
+      name: "Jane Smith",
+      username: "janesmith",
+      email: "jane@example.com",
       password: "",
       courseRegistered: "Course 2", // added field
     },
@@ -64,10 +65,8 @@ const AdminUsers = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.courseName || !formData.institution || !formData.instructor || !formData.password || !formData.courseRegistered) {
+    if (!formData.name || !formData.username || !formData.email || !formData.password || !formData.courseRegistered) {
       setError("Please fill in all the details");
-    } else if (formData.password !== '1234') {
-      setError("Password does not match");
     } else {
       if (editMode) {
         setUsers((prevUsers) =>
@@ -83,16 +82,16 @@ const AdminUsers = () => {
       }
       setOpen(false);
       setEditMode(false);
-      setFormData({ courseName: '', institution: '', instructor: '', password: '', courseRegistered: '' }); // reset form data
+      setFormData({ name: '', username: '', email: '', password: '', courseRegistered: '' }); // reset form data
       setError(null);
     }
   };
 
   const handleEdit = (user) => {
     setFormData({
-      courseName: user.courseName,
-      institution: user.institution,
-      instructor: user.instructor,
+      name: user.name,
+      username: user.username,
+      email: user.email,
       password: user.password,
       courseRegistered: user.courseRegistered, // added field
     });
@@ -109,7 +108,7 @@ const AdminUsers = () => {
     <div className='m-1 p-4'>
       <Card className='shadow-sm shadow-primary'>
         <CardHeader className='w-full flex flex-row justify-between items-center'>
-          <CardTitle>Courses</CardTitle>
+          <CardTitle>Users</CardTitle>
           <Button onClick={() => { setOpen(true); setEditMode(false); }}>
             <Plus className='h-10 w-10 mr-2' /> Add
           </Button>
@@ -118,9 +117,9 @@ const AdminUsers = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Course Name</TableHead>
-                <TableHead>Institution</TableHead>
-                <TableHead>Instructor</TableHead>
+                <TableHead className="w-[100px]">Name</TableHead>
+                <TableHead>Username</TableHead>
+                <TableHead>Email</TableHead>
                 <TableHead>Course Registered</TableHead> {/* added column */}
                 <TableHead className="flex justify-center">Actions</TableHead>
               </TableRow>
@@ -128,15 +127,15 @@ const AdminUsers = () => {
             <TableBody>
               {users.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.courseName}</TableCell>
-                  <TableCell>{user.institution}</TableCell>
-                  <TableCell>{user.instructor}</TableCell>
+                  <TableCell className="font-medium">{user.name}</TableCell>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.email}</TableCell>
                   <TableCell>{user.courseRegistered}</TableCell>
                   <TableCell>
                     <span className='w-full h-full flex justify-center items-center gap-3'>
                       <Edit className='h-8 w-8 p-1 text-blue-500 cursor-pointer hover:bg-blue-500 hover:text-background rounded-md'
                         onClick={() => handleEdit(user)} />
-                      <TrashIcon className='h-8 w-8 p-1 text-red-500 cursor-pointer hover:bg-red-500 hover:text-background rounded-md'
+                                            <TrashIcon className='h-8 w-8 p-1 text-red-500 cursor-pointer hover:bg-red-500 hover:text-background rounded-md'
                         onClick={() => handleDelete(user.id)} />
                     </span>
                   </TableCell>
@@ -148,26 +147,30 @@ const AdminUsers = () => {
       </Card>
       <Sheet open={open} onClose={() => setOpen(false)}>
         <SheetHeader>
-          <SheetTitle>{editMode ? 'Edit Course' : 'Add Course'}</SheetTitle>
+          <SheetTitle>{editMode ? 'Edit User' : 'Add User'}</SheetTitle>
         </SheetHeader>
         <SheetContent>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div>
-                <Label htmlFor="courseName">Course Name</Label>
-                <Input id="courseName" value={formData.courseName} onChange={handleInputChange} />
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" value={formData.name} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="institution">Institution</Label>
-                <Input id="institution" value={formData.institution} onChange={handleInputChange} />
+                <Label htmlFor="username">Username</Label>
+                <Input id="username" value={formData.username} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="instructor">Instructor</Label>
-                <Input id="instructor" value={formData.instructor} onChange={handleInputChange} />
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" value={formData.email} onChange={handleInputChange} />
               </div>
               <div>
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" value={formData.password} onChange={handleInputChange} />
+              </div>
+              <div>
+                <Label htmlFor="courseRegistered">Course Registered</Label>
+                <Input id="courseRegistered" value={formData.courseRegistered} onChange={handleInputChange} />
               </div>
             </div>
             {error && (
@@ -184,4 +187,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default UserUsers;
