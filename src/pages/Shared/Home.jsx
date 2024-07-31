@@ -1,10 +1,8 @@
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { BsFacebook, BsTwitter } from 'react-icons/bs';
 import { FaInstagramSquare } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-import { AiFillGithub } from 'react-icons/ai';
 
 const courses = [
   { id: 1, title: "Course 1", category: "Programming", date: "2023-08-01", instructor: "John Doe", difficulty: "Beginner", syllabus: "Syllabus 1", schedule: "Schedule 1", prerequisites: "Prerequisites 1" },
@@ -62,8 +60,8 @@ const Home = () => {
             </p>
             <div class="search-container">
               <form action="/search" method="GET" class="search-form">
-                <input type="text" name="query" class="search-input" placeholder="Search..." />
-                <button type="submit" class="search-button">Search</button>
+                {/* <input type="text" name="query" class="search-input" placeholder="Search..." /> */}
+                {/* <button type="submit" class="search-button">Search</button> */}
               </form>
             </div>
           </div>
@@ -181,7 +179,7 @@ const Home = () => {
                 <a href="#">Our Vision</a>
               </h2>
               <p className="text-center">
-                To see you achieve more success in reaching more of your goals with Iris Goal Tracker.
+                To see you achieve more success in reaching more of your goals with Goal Tracker.
               </p>
             </div>
           </div>

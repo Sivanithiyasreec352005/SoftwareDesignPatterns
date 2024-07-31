@@ -16,7 +16,9 @@ import Business from './pages/Shared/Business'
 import CourseEnroll from './pages/Shared/CourseEnroll'
 import UserLearning from './pages/User/UserLearning'
 import UserLogin from './pages/Shared/UserLogin'
- import Rating from './pages/Shared/Rating'
+ import ViewReport from './pages/Shared/ViewReport'
+import AdminCourses from './pages/Admin/AdminCourses'
+import UserTest from './pages/User/UserTest'
 // import Stories from './pages/Shared/Stories'
 
 
@@ -24,7 +26,7 @@ import UserLogin from './pages/Shared/UserLogin'
 
 const App = () => {
     return (
-        <>
+        <div>
             <BrowserRouter>
                 <Routes>
                     <Route element={<HomeLayout />}>
@@ -34,17 +36,21 @@ const App = () => {
                         <Route path='/enroll' element={<Enroll/>} />
                         <Route path='/courseEnroll' element={<CourseEnroll/>} />
                         <Route path='/ulogin'element={<UserLogin/>} />
+                        <Route path='/viewreport'element={<ViewReport/>} />
                         {/* <Route path='/rating' element={<Rating  />}/> */}
                     </Route>
 
                     <Route element={<UserLayout />}>
                         <Route path='user/dashboard' element={<UserDashboard />} />
                         <Route path='user/users' element={<UserUsers />} />
-                        <Route path='user/lear' element={<UserLearning/>} />
+                        <Route path='user/learning' element={<UserLearning/>} />
+                        <Route path='user/test' element={<UserTest/>} />
+                        {/* <Route path='user/learning' element={<UserLearning/>} /> */}
                     </Route>
 
                     <Route element={<AdminLayout />}>
                         <Route path='/admin/dashboard' element={<AdminDashboard />} />
+                        <Route path='/admin/courses' element={<AdminCourses/>} />
                         <Route path='/admin/users' element={<AdminUsers />} />
                     </Route>
 
@@ -53,7 +59,7 @@ const App = () => {
             </BrowserRouter>
 
 
-        </>
+        </div>
     )
 }
 

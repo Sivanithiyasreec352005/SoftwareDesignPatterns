@@ -33,11 +33,6 @@ const Navbar = () => {
         link:'/ulogin'
         
     }
-    ,  {
-        title:'Rating',
-        link:'/rating'
-        
-    }
 ]
   return (
     <div className='w-full h-[8vh] flex flex-row justify-center items-center bg-primary/5 '>

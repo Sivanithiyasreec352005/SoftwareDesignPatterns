@@ -60,7 +60,7 @@ const Login = () => {
                 <div className="control_indicator"></div>
               </label>
               <div className="forgot">
-                <a href="#">Forgot Password?</a>
+                <a href="www.gmail.com">Forgot Password?</a>
               </div>
             </div>
             <input type="submit" name="send" value="Send" />

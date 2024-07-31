@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import {
   Table,
   TableBody,
@@ -8,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { BellRing, Check, Edit, Plus, TrashIcon } from "lucide-react";
+import { Edit, Plus, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,37 +22,36 @@ import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetContent,
-  SheetFooter,
   SheetHeader,
-  SheetTitle,
 } from "@/components/ui/sheet";
 
 const AdminUsers = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
-    courseName: '',
-    institution: '',
-    instructor: '',
+    courseName: '',  // Renamed field
+    instructorName: '',  // Renamed field
+    courseTimePeriod: '',  // Renamed field
     password: '',
     courseRegistered: '', // added field
   });
   const [users, setUsers] = useState([
     {
       id: 1,
-      courseName: "Course 1",
-      institution: "Institution 1",
-      instructor: "John Doe",
+      courseName: "Course 1",  
+      instructorName: "John Doe",  
+      courseTimePeriod: "2024-2025", 
       password: "",
-      courseRegistered: "Course 1", // added field
+      courseRegistered: "Course 1", 
     },
     {
       id: 2,
-      courseName: "Course 2",
-      institution: "Institution 2",
-      instructor: "Jane Smith",
+      courseName: "Course 2",  
+      instructorName: "Jane Smith",  
+      courseTimePeriod: "2024-2025",
       password: "",
-      courseRegistered: "Course 2", // added field
+      courseRegistered: "Course 2", 
     },
   ]);
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -64,10 +64,8 @@ const AdminUsers = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.courseName || !formData.institution || !formData.instructor || !formData.password || !formData.courseRegistered) {
+    if (!formData.courseName || !formData.instructorName || !formData.courseTimePeriod || !formData.password || !formData.courseRegistered) {
       setError("Please fill in all the details");
-    } else if (formData.password !== '1234') {
-      setError("Password does not match");
     } else {
       if (editMode) {
         setUsers((prevUsers) =>
@@ -83,7 +81,7 @@ const AdminUsers = () => {
       }
       setOpen(false);
       setEditMode(false);
-      setFormData({ courseName: '', institution: '', instructor: '', password: '', courseRegistered: '' }); // reset form data
+      setFormData({ courseName: '', instructorName: '', courseTimePeriod: '', password: '', courseRegistered: '' }); // reset form data
       setError(null);
     }
   };
@@ -91,10 +89,10 @@ const AdminUsers = () => {
   const handleEdit = (user) => {
     setFormData({
       courseName: user.courseName,
-      institution: user.institution,
-      instructor: user.instructor,
+      instructorName: user.instructorName,
+      courseTimePeriod: user.courseTimePeriod,
       password: user.password,
-      courseRegistered: user.courseRegistered, // added field
+      courseRegistered: user.courseRegistered, 
     });
     setCurrentUserId(user.id);
     setEditMode(true);
@@ -105,22 +103,28 @@ const AdminUsers = () => {
     setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
   };
 
+  const handleViewReport = () => {
+    navigate('/viewreport'); 
+  };
+
   return (
     <div className='m-1 p-4'>
       <Card className='shadow-sm shadow-primary'>
         <CardHeader className='w-full flex flex-row justify-between items-center'>
-          <CardTitle>Courses</CardTitle>
+          <Button onClick={handleViewReport}>
+            View Report
+          </Button>
           <Button onClick={() => { setOpen(true); setEditMode(false); }}>
-            <Plus className='h-10 w-10 mr-2' /> Add
+            <Plus className='h-10 w-10 mr-2' /> Add User
           </Button>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Course Name</TableHead>
-                <TableHead>Institution</TableHead>
-                <TableHead>Instructor</TableHead>
+                <TableHead className="w-[150px]">Name of Course</TableHead> {/* Updated column header */}
+                <TableHead>Instructor Name</TableHead> {/* Updated column header */}
+                <TableHead>Course Time Period</TableHead> {/* Updated column header */}
                 <TableHead>Course Registered</TableHead> {/* added column */}
                 <TableHead className="flex justify-center">Actions</TableHead>
               </TableRow>
@@ -128,9 +132,9 @@ const AdminUsers = () => {
             <TableBody>
               {users.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.courseName}</TableCell>
-                  <TableCell>{user.institution}</TableCell>
-                  <TableCell>{user.instructor}</TableCell>
+                  <TableCell className="font-medium">{user.courseName}</TableCell> {/* Updated field */}
+                  <TableCell>{user.instructorName}</TableCell> {/* Updated field */}
+                  <TableCell>{user.courseTimePeriod}</TableCell> {/* Updated field */}
                   <TableCell>{user.courseRegistered}</TableCell>
                   <TableCell>
                     <span className='w-full h-full flex justify-center items-center gap-3'>
@@ -148,26 +152,30 @@ const AdminUsers = () => {
       </Card>
       <Sheet open={open} onClose={() => setOpen(false)}>
         <SheetHeader>
-          <SheetTitle>{editMode ? 'Edit Course' : 'Add Course'}</SheetTitle>
+          {/* Removed SheetTitle */}
         </SheetHeader>
         <SheetContent>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div>
-                <Label htmlFor="courseName">Course Name</Label>
+                <Label htmlFor="courseName">Name of Course</Label> {/* Updated field */}
                 <Input id="courseName" value={formData.courseName} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="institution">Institution</Label>
-                <Input id="institution" value={formData.institution} onChange={handleInputChange} />
+                <Label htmlFor="instructorName">Instructor Name</Label> {/* Updated field */}
+                <Input id="instructorName" value={formData.instructorName} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="instructor">Instructor</Label>
-                <Input id="instructor" value={formData.instructor} onChange={handleInputChange} />
+                <Label htmlFor="courseTimePeriod">Course Time Period</Label> {/* Updated field */}
+                <Input id="courseTimePeriod" value={formData.courseTimePeriod} onChange={handleInputChange} />
               </div>
               <div>
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" value={formData.password} onChange={handleInputChange} />
+              </div>
+              <div>
+                <Label htmlFor="courseRegistered">Course Registered</Label>
+                <Input id="courseRegistered" value={formData.courseRegistered} onChange={handleInputChange} />
               </div>
             </div>
             {error && (

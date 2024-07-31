@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import {
   Table,
   TableBody,
@@ -8,8 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { BellRing, Check, Edit, Plus, TrashIcon } from "lucide-react";
+import { Edit, Plus, TrashIcon, Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,38 +21,37 @@ import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetContent,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
 
-const UserUsers = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+const AdminCourses = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    username: '',
-    email: '',
+    courseName: '',
+    instructorName: '',
+    courseTimePeriod: '',
     password: '',
-    courseRegistered: '', // added field
+    courseRegistered: '',
   });
   const [users, setUsers] = useState([
     {
       id: 1,
-      name: "John Doe",
-      username: "johndoe",
-      email: "john@example.com",
+      courseName: "Course 1",
+      instructorName: "John Doe",
+      courseTimePeriod: "2024-2025",
       password: "",
-      courseRegistered: "Course 1", // added field
+      courseRegistered: "Course 1",
     },
     {
       id: 2,
-      name: "Jane Smith",
-      username: "janesmith",
-      email: "jane@example.com",
+      courseName: "Course 2",
+      instructorName: "Jane Smith",
+      courseTimePeriod: "2024-2025",
       password: "",
-      courseRegistered: "Course 2", // added field
+      courseRegistered: "Course 2",
     },
   ]);
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -66,7 +64,7 @@ const UserUsers = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.username || !formData.email || !formData.password || !formData.courseRegistered) {
+    if (!formData.courseName || !formData.instructorName || !formData.courseTimePeriod || !formData.password || !formData.courseRegistered) {
       setError("Please fill in all the details");
     } else {
       if (editMode) {
@@ -83,18 +81,18 @@ const UserUsers = () => {
       }
       setOpen(false);
       setEditMode(false);
-      setFormData({ name: '', username: '', email: '', password: '', courseRegistered: '' }); // reset form data
+      setFormData({ courseName: '', instructorName: '', courseTimePeriod: '', password: '', courseRegistered: '' });
       setError(null);
     }
   };
 
   const handleEdit = (user) => {
     setFormData({
-      name: user.name,
-      username: user.username,
-      email: user.email,
+      courseName: user.courseName,
+      instructorName: user.instructorName,
+      courseTimePeriod: user.courseTimePeriod,
       password: user.password,
-      courseRegistered: user.courseRegistered, // added field
+      courseRegistered: user.courseRegistered,
     });
     setCurrentUserId(user.id);
     setEditMode(true);
@@ -106,37 +104,50 @@ const UserUsers = () => {
   };
 
   const handleViewReport = () => {
-    navigate('/viewreport'); // Navigate to the /viewreport page
+    navigate('/viewreport');
   };
 
   return (
     <div className='m-1 p-4'>
+      <div className='mb-4'>
+        <Card className='w-1/4 border border-primary'>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Courses
+            </CardTitle>
+            <Book className="h-6 w-6 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{users.length}</div>
+          </CardContent>
+        </Card>
+      </div>
       <Card className='shadow-sm shadow-primary'>
         <CardHeader className='w-full flex flex-row justify-between items-center'>
           <Button onClick={handleViewReport}>
             View Report
           </Button>
           <Button onClick={() => { setOpen(true); setEditMode(false); }}>
-            <Plus className='h-10 w-10 mr-2' /> Add User
+            <Plus className='h-10 w-10 mr-2' /> Add Course
           </Button>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Name</TableHead>
-                <TableHead>Username</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Course Registered</TableHead> {/* added column */}
+                <TableHead className="w-[150px]">Name of Course</TableHead>
+                <TableHead>Instructor Name</TableHead>
+                <TableHead>Course Time Period</TableHead>
+                <TableHead>Course Registered</TableHead>
                 <TableHead className="flex justify-center">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {users.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.name}</TableCell>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.email}</TableCell>
+                  <TableCell className="font-medium">{user.courseName}</TableCell>
+                  <TableCell>{user.instructorName}</TableCell>
+                  <TableCell>{user.courseTimePeriod}</TableCell>
                   <TableCell>{user.courseRegistered}</TableCell>
                   <TableCell>
                     <span className='w-full h-full flex justify-center items-center gap-3'>
@@ -154,22 +165,22 @@ const UserUsers = () => {
       </Card>
       <Sheet open={open} onClose={() => setOpen(false)}>
         <SheetHeader>
-          {/* <SheetTitle>{editMode ? 'Edit User' : 'Add User'}</SheetTitle> */}
+          {/* <SheetTitle>{editMode ? 'Edit Course' : 'Add Course'}</SheetTitle> */}
         </SheetHeader>
         <SheetContent>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div>
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" value={formData.name} onChange={handleInputChange} />
+                <Label htmlFor="courseName">Name of Course</Label>
+                <Input id="courseName" value={formData.courseName} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" value={formData.username} onChange={handleInputChange} />
+                <Label htmlFor="instructorName">Instructor Name</Label>
+                <Input id="instructorName" value={formData.instructorName} onChange={handleInputChange} />
               </div>
               <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" value={formData.email} onChange={handleInputChange} />
+                <Label htmlFor="courseTimePeriod">Course Time Period</Label>
+                <Input id="courseTimePeriod" value={formData.courseTimePeriod} onChange={handleInputChange} />
               </div>
               <div>
                 <Label htmlFor="password">Password</Label>
@@ -194,4 +205,4 @@ const UserUsers = () => {
   );
 };
 
-export default UserUsers;
+export default AdminCourses;

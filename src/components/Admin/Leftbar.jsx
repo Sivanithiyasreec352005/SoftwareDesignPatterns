@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, Cog, Mail, Users, Power } from 'lucide-react'
+import { LayoutDashboard, Cog, Mail, Users, Power, Book } from 'lucide-react'
 import { Button } from '../ui/button'
 const Leftbar = () => {
 
@@ -11,6 +11,11 @@ const Leftbar = () => {
             icon: LayoutDashboard
         }, {
             title: 'Courses',
+            link: '/admin/courses',
+            icon: Book
+        }
+        , {
+            title: 'Users',
             link: '/admin/users',
             icon: Users
         }

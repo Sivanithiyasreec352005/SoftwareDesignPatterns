@@ -1,161 +1,93 @@
-import React, { useState } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ShoppingBag, Users, BarChart2, Settings, UserPlus, BookOpen, TrendingUp } from 'lucide-react';
 
-function UserDashboard() {
-  const [courses, setCourses] = useState([
-    {
-      id: 1,
-      name: "Programming",
-      seats: 50,
-      seatsAvailable: 20,
-      startDate: "2024-02-01",
-      endDate: "2024-07-29",
-    },
-    {
-      id: 2,
-      name: "Design",
-      seats: 30,
-      seatsAvailable: 10,
-      startDate: "2024-03-03",
-      endDate: "2024-08-15",
-    },
-    {
-      id: 3,
-      name: "Web Development",
-      seats: 40,
-      seatsAvailable: 30,
-      startDate: "2024-06-11",
-      endDate: "2024-12-01",
-    },
-    {
-      id: 4,
-      name: "Machine Learning",
-      seats: 35,
-      seatsAvailable: 15,
-      startDate: "2024-07-02",
-      endDate: "2024-11-08",
-    },
-    {
-      id: 5,
-      name: "Artificial Intelligence",
-      seats: 45,
-      seatsAvailable: 25,
-      startDate: "2024-09-01",
-      endDate: "2024-12-15",
-    },
-    {
-      id: 6,
-      name: "Flutter",
-      seats: 45,
-      seatsAvailable: 25,
-      startDate: "2024-09-01",
-      endDate: "2025-01-01",
-    },
-  ]);
-  const [selectedCourses, setSelectedCourses] = useState([]);
-  const navigate = useNavigate();
+const UserDashboard = () => {
+    const navigate = useNavigate();
+    const [courseProgress, setCourseProgress] = useState(70); // Example progress value
 
-  const handleCourseSelect = (course) => {
-    if (selectedCourses.some((c) => c.id === course.id)) {
-      setSelectedCourses(selectedCourses.filter((c) => c.id !== course.id));
-    } else {
-      setSelectedCourses([...selectedCourses, course]);
-    }
-  };
+    const handleAddUser = () => {
+        navigate('/user/users');
+    };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.toLocaleDateString("en-US", { month: "short" })} ${date.getDate()}`;
-  };
+    const handleProgressChange = (event) => {
+        setCourseProgress(event.target.value);
+    };
 
-  const handleEnroll = () => {
-    navigate('/enroll');
-  };
-
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 dark:bg-gray-800 min-h-screen">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
-        Welcome to NLEARN
-      </h1>
-      <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Enroll in Courses</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <Card key={course.id} className="bg-white dark:bg-gray-900 shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">{course.name}</CardTitle>
-              <CardDescription className="text-gray-700 dark:text-gray-300">{course.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <p className="text-sm text-muted-foreground">Seats Available</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                    {course.seatsAvailable}/{course.seats}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Dates</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                    {formatDate(course.startDate)} - {formatDate(course.endDate)}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant={selectedCourses.some((c) => c.id === course.id) ? "primary" : "outline"}
-                onClick={() => handleCourseSelect(course)}
-                className="w-full"
-              >
-                {selectedCourses.some((c) => c.id === course.id) ? "Deselect" : "Select"}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Selected Courses</h2>
-        {selectedCourses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {selectedCourses.map((course) => (
-              <Card key={course.id} className="bg-white dark:bg-gray-900 shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">{course.name}</CardTitle>
-                  <CardDescription className="text-gray-700 dark:text-gray-300">{course.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground">Seats Available</p>
-                      <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                        {course.seatsAvailable}/{course.seats}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Dates</p>
-                      <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                        {formatDate(course.startDate)} - {formatDate(course.endDate)}
-                      </p>
-                    </div>
-                  </div>
-                  <Button onClick={() => handleCourseSelect(course)} className="w-full">
-                    Deselect
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <p className="text-muted-foreground">No courses selected yet.</p>
-        )}
-      </div>
-      <div className="mt-8 flex justify-end">
-        <Button size="lg" onClick={handleEnroll}>
-          Enroll
-        </Button>
-      </div>
-    </div>
-  );
-}
+    return (
+        <div className="flex flex-col p-4 gap-4">
+            <div className="flex flex-col gap-2 mb-4">
+                <h1 className="text-3xl font-bold text-primary mb-2">Welcome back user..!!</h1>
+                <p className="text-lg text-muted-foreground">Manage your account and explore the features.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <Card className='border border-primary hover:shadow-lg transition-shadow'>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">View Test Reports</CardTitle>
+                        <BarChart2 className="h-6 w-6 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <button className="px-4 py-2 bg-primary text-white rounded w-full">View</button>
+                    </CardContent>
+                </Card>
+                
+               
+                <Card className='border border-primary hover:shadow-lg transition-shadow'>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Add Courses</CardTitle>
+                        <UserPlus className="h-6 w-6 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <button
+                            className="px-4 py-2 bg-primary text-white rounded w-full"
+                            onClick={handleAddUser}
+                        >
+                            Add
+                        </button>
+                    </CardContent>
+                </Card>
+                <Card className='border border-primary hover:shadow-lg transition-shadow'>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Courses</CardTitle>
+                        <ShoppingBag className="h-6 w-6 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <button className="px-4 py-2 bg-primary text-white rounded w-full">View Courses</button>
+                    </CardContent>
+                </Card>
+                <Card className='border border-primary hover:shadow-lg transition-shadow'>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Course Enrolled</CardTitle>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <button className="px-4 py-2 bg-primary text-white rounded w-full">Enrolled</button>
+                    </CardContent>
+                </Card>
+                <Card className='border border-primary hover:shadow-lg transition-shadow'>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Enrolled Course Progress</CardTitle>
+                        <TrendingUp className="h-6 w-6 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="w-full bg-gray-200 rounded-full h-4">
+                            <div className="bg-primary h-4 rounded-full" style={{ width: `${courseProgress}%` }}></div>
+                        </div>
+                        <p className="text-center mt-2">{courseProgress}% Complete</p>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={courseProgress}
+                            onChange={handleProgressChange}
+                            className="w-full mt-2"
+                        />
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    );
+};
 
 export default UserDashboard;
